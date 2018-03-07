@@ -1,2 +1,8 @@
 # remember-the-bills-client
-Client for Remember the Bills
+PWA client for Remember the Bills
+
+# to contribute
+```
+$ yarn install
+$ yarn serve
+```
