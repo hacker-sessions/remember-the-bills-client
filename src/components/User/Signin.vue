@@ -49,17 +49,14 @@ export default {
     }
   },
   computed: {
-    // eslint-disable-next-line
     user () {
-      //  return this.$store.getters.user
+      return this.$store.getters.user
     },
-    // eslint-disable-next-line
     error () {
-      // return this.$store.getters.error
+      return this.$store.getters.error
     },
-    // eslint-disable-next-line
     loading () {
-      // return this.$store.getters.loading
+      return this.$store.getters.loading
     }
   },
   watch: {
@@ -75,7 +72,7 @@ export default {
         email: this.email,
         password: this.password
       })
-      //        console.log({email: this.email, password: this.password, confirmPassword: this.confirmPassword})
+      console.log({email: this.email, password: this.password, confirmPassword: this.confirmPassword})
     },
     onDismissed () {
       this.$store.dispatch('clearError')
