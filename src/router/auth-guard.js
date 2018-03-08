@@ -1,6 +1,7 @@
+import { store } from '../store'
 
 export default (to, from, next) => {
-  if (false) {
+  if (store.getters.user) {
     next()
   } else {
     next('/signin')
