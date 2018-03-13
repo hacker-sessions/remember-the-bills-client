@@ -6,6 +6,7 @@ import Vuetify from 'vuetify'
 import * as firebase from 'firebase'
 import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
+import './style/loading.anim.css'
 
 Vue.config.productionTip = false
 

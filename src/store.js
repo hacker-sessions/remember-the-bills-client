@@ -77,5 +77,16 @@ export default new Vuex.Store({
     clearError ({commit}) {
       commit('clearError')
     }
+  },
+  getters: {
+    user (state) {
+      return state.user
+    },
+    loading (state) {
+      return state.loading
+    },
+    error (state) {
+      return state.error
+    }
   }
 })
