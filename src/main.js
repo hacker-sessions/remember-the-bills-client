@@ -4,6 +4,7 @@ import router from './router/router'
 import store from './store'
 import Vuetify from 'vuetify'
 import * as firebase from 'firebase'
+import Alert from './components/shared/Alert.vue'
 import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
 import './style/loading.anim.css'
@@ -11,6 +12,8 @@ import './style/loading.anim.css'
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
+
+Vue.component('app-alert', Alert)
 
 new Vue({
   router,
