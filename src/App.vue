@@ -34,8 +34,9 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
-      <span class="white--text">&copy; 2018</span>
+    <v-footer color="indigo" app class="pa-3">
+      <v-spacer></v-spacer>
+      <div>&copy; 2018</div>
     </v-footer>
   </v-app>
 </template>
@@ -64,8 +65,7 @@ export default {
       return menuItems
     },
     userIsAuthenticated () {
-      // eslint-disable-next-line
-      return false //this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   methods: {
@@ -76,25 +76,6 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="css">
+@import "./style/loading.anim.css";
 </style>
