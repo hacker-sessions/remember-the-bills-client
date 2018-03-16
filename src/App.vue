@@ -57,9 +57,7 @@ export default {
       ]
       if (this.userIsAuthenticated) {
         menuItems = [
-          {icon: 'schedule', title: 'Recent Meetups', link: '/meetups'},
-          {icon: 'room', title: 'Organize Meetup', link: '/meetup/create'},
-          {icon: 'person', title: 'Profile', link: '/profile'}
+          {icon: 'person', title: 'Profile', link: '/'}
         ]
       }
       return menuItems
