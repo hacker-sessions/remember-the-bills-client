@@ -1,12 +1,12 @@
 <template>
-  <v-alert error dismissible @input="onClose" :value="true">
+  <v-alert :type="type" dismissible @input="onClose" :value="true">
     {{ text }}
   </v-alert>
 </template>
 
 <script>
 export default {
-  props: ['text'],
+  props: ['text','type'],
   methods: {
     onClose () {
       this.$emit('dismissed')

@@ -2,7 +2,12 @@
   <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+        <app-alert @dismissed="onDismissed" :text="error.message" :type="'error'"></app-alert>
+      </v-flex>
+    </v-layout>
+    <v-layout row v-else-if="success">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert @dismissed="onDismissed" :text="success.message" :type="'success'"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -23,7 +28,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex xs12>
-                    <v-text-field name="confirmPassword" label="Confirm Password" id="confirmPassword" v-model="confirmPassword" type="password" :rules="[comparePasswords]"></v-text-field>
+                    <v-text-field name="passwordConfirmation" label="Confirm Password" id="passwordConfirmation" v-model="passwordConfirmation" type="password" :rules="[comparePasswords]"></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
@@ -51,18 +56,21 @@ export default {
     return {
       email: '',
       password: '',
-      confirmPassword: ''
+      passwordConfirmation: ''
     }
   },
   computed: {
     comparePasswords () {
-      return this.password !== this.confirmPassword ? 'Password do not match' : ''
+      return this.password !== this.passwordConfirmation ? 'Password do not match' : ''
     },
     user () {
       return this.$store.getters.user
     },
     error () {
       return this.$store.getters.error
+    },
+    success () {
+      return this.$store.getters.success
     },
     loading () {
       return this.$store.getters.loading
@@ -79,16 +87,17 @@ export default {
     onSignup () {
       this.$store.dispatch('signUserUp', {
         email: this.email,
-        password: this.password
+        password: this.password,
+        passwordConfirmation: this.passwordConfirmation
       })
       console.log({
         email: this.email,
         password: this.password,
-        confirmPassword: this.confirmPassword
+        passwordConfirmation: this.passwordConfirmation
       })
     },
     onDismissed () {
-      this.$store.dispatch('clearError')
+      this.$store.dispatch('clearAlert')
     }
   }
 }

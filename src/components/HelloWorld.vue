@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <v-container>Hello world</v-container>
+      <v-container>Hello {{user.email}}</v-container>
     </v-content>
   </v-app>
 </template>
@@ -9,8 +9,10 @@
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  computed: {
+    user () {
+      return this.$store.getters.user
+    }
   }
 }
 </script>

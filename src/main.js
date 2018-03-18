@@ -8,6 +8,9 @@ import Alert from './components/shared/Alert.vue'
 import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
 import './style/loading.anim.css'
+import axios from 'axios'
+
+axios.defaults.headers.common['Accept'] = 'application/json'
 
 Vue.config.productionTip = false
 

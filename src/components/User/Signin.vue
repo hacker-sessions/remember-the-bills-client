@@ -72,7 +72,6 @@ export default {
         email: this.email,
         password: this.password
       })
-      console.log({email: this.email, password: this.password})
     },
     onDismissed () {
       this.$store.dispatch('clearError')
