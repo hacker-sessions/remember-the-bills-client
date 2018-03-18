@@ -1,7 +1,7 @@
 # remember-the-bills-client
 PWA client for Remember the Bills
 
-# to contribute
+## Build Setup
 ``` bash
 # install dependencies
 yarn
