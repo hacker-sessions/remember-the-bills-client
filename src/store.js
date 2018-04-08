@@ -68,7 +68,7 @@ export default new Vuex.Store({
       }).catch(
         error => {
           commit('setLoading', false)
-          commit('setError', error)
+          commit('setError', error.response.statusText)
           console.log(error)
         }
       )
