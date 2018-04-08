@@ -18,7 +18,7 @@
               <form @submit.prevent="onSignup">
                 <v-layout row>
                   <v-flex xs12>
-                    <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required></v-text-field>
+                    <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required :rules="emailRules"></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
@@ -56,12 +56,16 @@ export default {
     return {
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ]
     }
   },
   computed: {
     comparePasswords () {
-      return this.password !== this.passwordConfirmation ? 'Password do not match' : ''
+      return v => this.password === this.passwordConfirmation || 'Password do not match'
     },
     user () {
       return this.$store.getters.user
