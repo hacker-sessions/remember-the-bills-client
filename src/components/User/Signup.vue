@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message" :type="'error'"></app-alert>
+        <app-alert @dismissed="onDismissed" :text="error" :type="'error'"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row v-else-if="success">
@@ -18,7 +18,7 @@
               <form @submit.prevent="onSignup">
                 <v-layout row>
                   <v-flex xs12>
-                    <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required></v-text-field>
+                    <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required :rules="emailRules"></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
@@ -56,18 +56,22 @@ export default {
     return {
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ]
     }
   },
   computed: {
     comparePasswords () {
-      return this.password !== this.passwordConfirmation ? 'Password do not match' : ''
+      return v => this.password === this.passwordConfirmation || 'Password do not match'
     },
     user () {
       return this.$store.getters.user
     },
     error () {
-      return this.$store.getters.error
+      return this.$store.getters.error ? this.$store.getters.error.errors.full_messages[0] || 'Something goes wrong. Please try again or contact our team' : ''
     },
     success () {
       return this.$store.getters.success
