@@ -49,7 +49,7 @@ export default new Vuex.Store({
         commit('setSuccess', {message: `Please check your email: ${user.data.data.email}`})
       }).catch(error => {
         commit('setLoading', false)
-        commit('setError', error)
+        commit('setError', JSON.parse(error.response.request.responseText))
         console.log(error)
       })
     },
@@ -68,7 +68,7 @@ export default new Vuex.Store({
       }).catch(
         error => {
           commit('setLoading', false)
-          commit('setError', error)
+          commit('setError', error.response.statusText)
           console.log(error)
         }
       )
@@ -82,6 +82,9 @@ export default new Vuex.Store({
     },
     clearAlert ({commit}) {
       commit('clearAlert')
+    },
+    setSuccessMessage ({commit}, payload) {
+      commit('setSuccess', payload)
     }
   },
   getters: {

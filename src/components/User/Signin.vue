@@ -2,7 +2,12 @@
   <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+        <app-alert @dismissed="onDismissed" :text="error" :type="'error'"></app-alert>
+      </v-flex>
+    </v-layout>
+    <v-layout row v-else-if="success">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert @dismissed="onDismissed" :text="'Welcome! Proceed with signin'" :type="'success'"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -57,6 +62,9 @@ export default {
     },
     loading () {
       return this.$store.getters.loading
+    },
+    success () {
+      return this.$store.getters.success
     }
   },
   watch: {
@@ -74,7 +82,12 @@ export default {
       })
     },
     onDismissed () {
-      this.$store.dispatch('clearError')
+      this.$store.dispatch('clearAlert')
+    }
+  },
+  created () {
+    if ('true' === this.$route.query.account_confirmation_success) {
+      this.$store.dispatch('setSuccessMessage','welcome')
     }
   }
 }
