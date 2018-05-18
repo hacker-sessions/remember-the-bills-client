@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message" :type="'error'"></app-alert>
+        <app-alert @dismissed="onDismissed" :text="error" :type="'error'"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row v-else-if="success">
@@ -71,7 +71,7 @@ export default {
       return this.$store.getters.user
     },
     error () {
-      return this.$store.getters.error
+      return this.$store.getters.error ? this.$store.getters.error.errors.full_messages[0] || 'Something goes wrong. Please try again or contact our team' : ''
     },
     success () {
       return this.$store.getters.success

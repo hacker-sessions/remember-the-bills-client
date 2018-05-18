@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  props: ['text','type'],
+  props: ['text', 'type'],
   methods: {
     onClose () {
       this.$emit('dismissed')
