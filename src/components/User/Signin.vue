@@ -86,8 +86,8 @@ export default {
     }
   },
   created () {
-    if ('true' === this.$route.query.account_confirmation_success) {
-      this.$store.dispatch('setSuccessMessage','welcome')
+    if (this.$route.query.account_confirmation_success === 'true') {
+      this.$store.dispatch('setSuccessMessage', 'welcome')
     }
   }
 }
