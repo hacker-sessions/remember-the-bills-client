@@ -27,8 +27,8 @@ module.exports = {
     '@nuxtjs/axios'
   ],
   axios: {
-    host: 'localhost',
-    port: 8080,
-    prefix: '/api'
+    host: '192.168.56.101',
+    port: 3000,
+    prefix: '/api/v1'
   }
 }

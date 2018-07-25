@@ -5,9 +5,16 @@
   "author": "Marcel Teruo Nakamine <marcel.nakamine@outlook.com>",
   "private": true,
   "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/pwa": "latest",
     "@nuxtjs/vuetify": "^0.4.2",
     "nuxt": "latest"
+  },
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "8080"
+    }
   },
   "scripts": {
     "dev": "nuxt",
