@@ -1,16 +1,23 @@
-# remember-the-bills-client
-PWA client for Remember the Bills
+# remember-the-bills-client-nuxt
+
+> PWA client for Remember the Bills
 
 ## Build Setup
+
 ``` bash
 # install dependencies
-yarn
+$ npm install # Or yarn install
 
-# serve with hot reload at localhost:8080
-yarn serve
+# serve with hot reload at localhost:3000
+# service worker is disabled in dev
+$ npm run dev
 
-# build for production with minification
-yarn build
+# build for production and launch server
+$ npm run build
+$ npm start
+
+# generate static project
+$ npm run generate
 ```
 
 # Release notes
