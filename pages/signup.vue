@@ -51,7 +51,12 @@
 </template>
 
 <script>
+import AppAlert from '@/components/shared/Alert.vue'
+
 export default {
+  components: {
+    AppAlert
+  },
   data () {
     return {
       email: '',
