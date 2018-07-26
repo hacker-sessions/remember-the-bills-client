@@ -37,7 +37,7 @@ const createStore = () => {
           email: payload.email,
           password: payload.password,
           password_confirmation: payload.passwordConfirmation,
-          confirm_success_url: `http://localhost:8080/signin`
+          confirm_success_url: 'http://localhost:8080/signin'
         }).then(user => {
           commit('setLoading', false)
           commit('setSuccess', {
@@ -45,7 +45,7 @@ const createStore = () => {
           })
         }).catch(error => {
           commit('setLoading', false)
-          commit('setError', JSON.parse(error.response.statusText))
+          commit('setError', error.response.statusText)
           console.log(error)
         })
       },

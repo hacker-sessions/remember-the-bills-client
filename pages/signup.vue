@@ -76,7 +76,7 @@ export default {
       return this.$store.getters.user
     },
     error () {
-      return this.$store.getters.error ? this.$store.getters.error.errors.full_messages[0] || 'Something goes wrong. Please try again or contact our team' : ''
+      return this.$store.getters.error ? this.$store.getters.error : ''
     },
     success () {
       return this.$store.getters.success
