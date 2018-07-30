@@ -1,5 +1,11 @@
 import Vuex from 'vuex'
 
+const config = {
+  headers: {
+    'content-type': 'application/json'
+  }
+}
+
 const createStore = () => {
   return new Vuex.Store({
     state: {
@@ -38,14 +44,14 @@ const createStore = () => {
           password: payload.password,
           password_confirmation: payload.passwordConfirmation,
           confirm_success_url: 'http://localhost:8080/signin'
-        }).then(user => {
+        }, config).then(user => {
           commit('setLoading', false)
           commit('setSuccess', {
-            message: `Please check your email: ${user.data.data.email}`
+            message: `Please check your email: ${user.data.email}`
           })
         }).catch(error => {
           commit('setLoading', false)
-          commit('setError', error.response.statusText)
+          commit('setError', error.response.data.errors.full_messages[0] || error.response.statusText || error.message)
           console.log(error)
         })
       },
@@ -54,21 +60,31 @@ const createStore = () => {
       }, payload) {
         commit('setLoading', true)
         commit('clearAlert')
-        this.$axios.$post('/auth/sign_in', {
-          email: payload.email,
-          password: payload.password
-        }).then(user => {
-          commit('setLoading', false)
-          commit('setUser', {
-            email: user.data.data.email
-          })
-        }).catch(
-          error => {
-            commit('setLoading', false)
-            commit('setError', error.response.statusText)
-            console.log(error)
+        this.$auth.login({
+          data: {
+            user: {
+              email: payload.email,
+              password: payload.password
+            }
           }
-        )
+        }).catch(e => {
+          this.error = e + ''
+        })
+        // this.$axios.$post('/auth/sign_in', {
+        //   email: payload.email,
+        //   password: payload.password
+        // }, config).then(user => {
+        //   commit('setLoading', false)
+        //   commit('setUser', {
+        //     email: user.data.data.email
+        //   })
+        // }).catch(
+        //   error => {
+        //     commit('setLoading', false)
+        //     commit('setError', error.response.statusText)
+        //     console.log(error)
+        //   }
+        // )
       },
       autoSignIn ({
         commit

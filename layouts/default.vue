@@ -65,11 +65,6 @@ export default {
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
-  },
-  methods: {
-    login () {
-      this.$router.push('/signin/')
-    }
   }
 }
 </script>

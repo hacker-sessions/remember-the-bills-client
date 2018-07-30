@@ -5,6 +5,7 @@
   "author": "Marcel Teruo Nakamine <marcel.nakamine@outlook.com>",
   "private": true,
   "dependencies": {
+    "@nuxtjs/auth": "^4.5.1",
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/pwa": "latest",
     "@nuxtjs/vuetify": "^0.4.2",

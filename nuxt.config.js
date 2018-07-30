@@ -24,11 +24,25 @@ module.exports = {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/vuetify',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
+  ],
+  plugins: [
+    '~/plugins/axios'
   ],
   axios: {
     host: '0.0.0.0',
     port: 3000,
-    prefix: '/api/v1'
+    prefix: '/api/v1',
+    init (axios, ctx) {
+      axios.defaults.headers.common['Accept'] = 'application/json'
+    }
+  },
+  auth: {
+    redirect: {
+      login: '/signin',
+      logout: '/',
+      user: '/'
+    }
   }
 }

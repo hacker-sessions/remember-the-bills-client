@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
         <app-alert @dismissed="onDismissed" :text="error" :type="'error'"></app-alert>
@@ -12,7 +13,16 @@
     </v-layout>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <v-card>
+        <v-card v-if="$auth.$state.loggedIn">
+          <v-alert type="error" :value="error">{{error}}</v-alert>
+          <v-card-text>
+            Logged in as {{$auth.$state.user.email}}
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="logout">Log out</v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-card v-else>
           <v-card-text>
             <v-container>
               <form @submit.prevent="onSignin">
@@ -88,6 +98,9 @@ export default {
     },
     onDismissed () {
       this.$store.dispatch('clearAlert')
+    },
+    logout () {
+      this.$auth.logout().catch(e => {this.error = e + ''})
     }
   },
   created () {
