@@ -39,6 +39,25 @@ module.exports = {
     }
   },
   auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/sign_in',
+            method: 'post',
+            propertyName: 'access-token'
+          },
+          logout: false,
+          user: {
+            url: '/',
+            method: 'get',
+            propertyName: 'data'
+          }
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      }
+    },
     redirect: {
       login: '/signin',
       logout: '/',

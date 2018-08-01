@@ -55,36 +55,43 @@ const createStore = () => {
           console.log(error)
         })
       },
-      signUserIn ({
-        commit
-      }, payload) {
-        commit('setLoading', true)
-        commit('clearAlert')
-        this.$auth.login({
-          data: {
-            user: {
-              email: payload.email,
-              password: payload.password
-            }
-          }
-        }).catch(e => {
-          this.error = e + ''
-        })
-        // this.$axios.$post('/auth/sign_in', {
-        //   email: payload.email,
-        //   password: payload.password
-        // }, config).then(user => {
-        //   commit('setLoading', false)
-        //   commit('setUser', {
-        //     email: user.data.data.email
-        //   })
-        // }).catch(
-        //   error => {
+      async signUserIn ({
+          commit
+        }, payload) {
+        // commit('setLoading', true)
+        // commit('clearAlert')
+        // try {
+        //   await this.$auth.loginWith('local', {
+        //     data: {
+        //       'email': payload.email,
+        //       'password': payload.password
+        //     }
+        //   }).catch(e => {
         //     commit('setLoading', false)
-        //     commit('setError', error.response.statusText)
-        //     console.log(error)
+        //     commit('setError', 'Failed Logging In')
+        //   })
+        //   if (this.$auth.loggedIn) {
+        //     commit('setLoading', false)
+        //     console.log('Successfully Logged In')
         //   }
-        // )
+        this.$axios.$post('/auth/sign_in', {
+          email: payload.email,
+          password: payload.password
+        }).then(user => {
+          commit('setLoading', false)
+          commit('setUser', {
+            email: user.data.email
+          })
+        }).catch(
+          error => {
+            commit('setLoading', false)
+            commit('setError', error.message || error.response.statusText)
+            console.log(error)
+          }
+        )
+        // } catch (e) {
+        //   commit('setError', 'Username or Password wrong')
+        // }
       },
       autoSignIn ({
         commit
