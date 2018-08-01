@@ -65,6 +65,11 @@ export default {
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
+  },
+  methods: {
+    onLogout() {
+      console.log('logout')
+    }
   }
 }
 </script>
