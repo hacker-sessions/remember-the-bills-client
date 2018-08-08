@@ -52,23 +52,23 @@ export default {
   computed: {
     menuItems () {
       let menuItems = [
-        {icon: 'face', title: 'Sign up', link: '/signup'},
-        {icon: 'lock_open', title: 'Sign in', link: '/signin'}
+        {icon: 'face', title: 'Sign up', link: '/account/signup'},
+        {icon: 'lock_open', title: 'Sign in', link: '/account/signin'}
       ]
       if (this.userIsAuthenticated) {
         menuItems = [
-          {icon: 'person', title: 'Profile', link: '/'}
+          {icon: 'person', title: 'Profile', link: '/account'}
         ]
       }
       return menuItems
     },
     userIsAuthenticated () {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      return this.$store.state.auth.loggedIn
     }
   },
   methods: {
     onLogout() {
-      console.log('logout')
+      this.$store.dispatch('logout')
     }
   }
 }

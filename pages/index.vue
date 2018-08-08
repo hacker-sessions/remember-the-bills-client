@@ -1,6 +1,9 @@
 <template>
   <section class="container">
     <div>
+      <div v-if="userIsAuthenticated">
+        <h1>Hello, {{ this.$auth.$state }}</h1>
+      </div>
       <logo/>
       <h1 class="title">
         NUXT
@@ -22,9 +25,17 @@
 
 <script>
   import Logo from '~/components/Logo.vue'
+  import {mapState} from 'vuex'
 
   export default {
-    middleware: ['auth'],
+    computed: {
+      ...mapState([
+        'user'
+      ]),
+      userIsAuthenticated () {
+        return this.$store.state.auth.loggedIn
+      }
+    },
     components: {Logo},
     data () {
       return {

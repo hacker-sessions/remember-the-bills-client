@@ -2,7 +2,9 @@ module.exports = {
   /*
   ** Build configuration
   */
-  build: {},
+  build: {
+    vendor: ['j-toker']
+  },
   /*
   ** Headers
   ** Common headers are already provided by @nuxtjs/pwa preset
@@ -19,6 +21,12 @@ module.exports = {
     theme_color: '#3B8070'
   },
   /*
+  ** Routes
+  */
+  router: {
+    middleware: ['auth']
+  },
+  /*
   ** Modules
   */
   modules: [
@@ -27,9 +35,16 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
+  /*
+  ** Plugins
+  */
   plugins: [
-    '~/plugins/axios'
+    '~/plugins/axios',
+    '~/plugins/auth'
   ],
+  /*
+  ** Modules Configurations
+  */
   axios: {
     host: '0.0.0.0',
     port: 3000,
@@ -39,29 +54,22 @@ module.exports = {
     }
   },
   auth: {
+    plugins: [ '~/plugins/auth.js' ],
+    redirect: {
+      login: '/account/signin',
+      logout: '/',
+      user: '/account'
+    },
     strategies: {
       local: {
         endpoints: {
-          login: {
-            url: '/auth/sign_in',
-            method: 'post',
-            propertyName: 'access-token'
-          },
-          logout: false,
-          user: {
-            url: '/',
-            method: 'get',
-            propertyName: 'data'
-          }
+          login: { url: '/auth/sign_in', method: 'post', propertyName: 'access-token' },
+          logout: { url: 'auth/sign_out', method: 'delete' },
+          user: { url: '/auth/validate_token', method: 'get', propertyName: 'data' }
         },
         tokenRequired: true,
         tokenType: 'Bearer'
       }
-    },
-    redirect: {
-      login: '/signin',
-      logout: '/',
-      user: '/'
     }
   }
 }

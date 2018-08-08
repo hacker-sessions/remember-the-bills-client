@@ -1,15 +1,14 @@
 import Vuex from 'vuex'
 
-const config = {
-  headers: {
-    'content-type': 'application/json'
-  }
-}
+// const config = {
+//   headers: {
+//     'content-type': 'application/json'
+//   }
+// }
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      user: null,
       loading: false,
       error: null,
       success: null
@@ -39,12 +38,19 @@ const createStore = () => {
         commit('setLoading', true)
         commit('clearAlert')
 
+        // this.$auth.loginWith('local', {
+        //   email: payload.email,
+        //   password: payload.password,
+        //   password_confirmation: payload.passwordConfirmation
+        // })
+
         this.$axios.$post('/auth', {
           email: payload.email,
           password: payload.password,
           password_confirmation: payload.passwordConfirmation,
-          confirm_success_url: 'http://localhost:8080/signin'
-        }, config).then(user => {
+          confirm_success_url: 'http://localhost:8080/account/signin'
+        })
+        .then(user => {
           commit('setLoading', false)
           commit('setSuccess', {
             message: `Please check your email: ${user.data.email}`
@@ -55,33 +61,19 @@ const createStore = () => {
           console.log(error)
         })
       },
-      async signUserIn ({
+      signUserIn ({
           commit
         }, payload) {
-        // commit('setLoading', true)
-        // commit('clearAlert')
-        // try {
-        //   await this.$auth.loginWith('local', {
-        //     data: {
-        //       'email': payload.email,
-        //       'password': payload.password
-        //     }
-        //   }).catch(e => {
-        //     commit('setLoading', false)
-        //     commit('setError', 'Failed Logging In')
-        //   })
-        //   if (this.$auth.loggedIn) {
-        //     commit('setLoading', false)
-        //     console.log('Successfully Logged In')
-        //   }
-        this.$axios.$post('/auth/sign_in', {
+        commit('setLoading', true)
+        commit('clearAlert')
+
+        this.$auth.loginWith('local', { data: {
           email: payload.email,
-          password: payload.password
+          password: payload.password}
         }).then(user => {
           commit('setLoading', false)
-          commit('setUser', {
-            email: user.data.email
-          })
+          console.log('Logged in')
+          this.app.router.push('/account')
         }).catch(
           error => {
             commit('setLoading', false)
@@ -89,23 +81,11 @@ const createStore = () => {
             console.log(error)
           }
         )
-        // } catch (e) {
-        //   commit('setError', 'Username or Password wrong')
-        // }
       },
-      autoSignIn ({
-        commit
-      }, payload) {
-        commit('setUser', {
-          id: payload.uid,
-          registeredMeetups: [],
-          fbkeys: {}
-        })
-      },
-      logout ({
+      async logout ({
         commit
       }) {
-        commit('setUser', null)
+        await this.$auth.logout()
       },
       clearAlert ({
         commit
@@ -116,12 +96,12 @@ const createStore = () => {
         commit
       }, payload) {
         commit('setSuccess', payload)
+      },
+      updateAccount ({commit}, payload) {
+        // udpate account
       }
     },
     getters: {
-      user (state) {
-        return state.user
-      },
       loading (state) {
         return state.loading
       },

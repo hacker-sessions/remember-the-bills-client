@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
         <app-alert @dismissed="onDismissed" :text="error" :type="'error'"></app-alert>
@@ -8,27 +7,18 @@
     </v-layout>
     <v-layout row v-else-if="success">
       <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="'Welcome! Proceed with signin'" :type="'success'"></app-alert>
+        <app-alert @dismissed="onDismissed" :text="success.message" :type="'success'"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <v-card v-if="$auth.$state.loggedIn">
-          <v-alert type="error" :value="error">{{error}}</v-alert>
-          <v-card-text>
-            Logged in as {{$auth.$state.user.email}}
-          </v-card-text>
-          <v-card-actions>
-            <v-btn @click="logout">Log out</v-btn>
-          </v-card-actions>
-        </v-card>
-        <v-card v-else>
+        <v-card>
           <v-card-text>
             <v-container>
-              <form @submit.prevent="onSignin">
+              <form @submit.prevent="onSignup">
                 <v-layout row>
                   <v-flex xs12>
-                    <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required></v-text-field>
+                    <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required :rules="emailRules"></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
@@ -38,9 +28,15 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex xs12>
+                    <v-text-field name="passwordConfirmation" label="Confirm Password" id="passwordConfirmation" v-model="passwordConfirmation" type="password" :rules="[comparePasswords]"></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex><nuxt-link to="/account/signin">I already have an account</nuxt-link></v-flex>
+                  <v-flex xs12>
                     <v-btn type="submit" :disabled="loading" :loading="loading">
-                      Sign in
-                      <span slot="loader" class="custom-loader">
+                      Sign up
+                    <span slot="loader" class="custom-loader">
                       <v-icon light>cached</v-icon>
                     </span>
                     </v-btn>
@@ -59,53 +55,45 @@
 import AppAlert from '@/components/shared/Alert.vue'
 
 export default {
+  auth: false,
   components: {
     AppAlert
   },
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      passwordConfirmation: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ]
     }
   },
   computed: {
-    user () {
-      return this.$store.getters.user
+    comparePasswords () {
+      return v => this.password === this.passwordConfirmation || 'Password do not match'
     },
     error () {
-      return this.$store.getters.error
-    },
-    loading () {
-      return this.$store.getters.loading
+      return this.$store.getters.error ? this.$store.getters.error : ''
     },
     success () {
       return this.$store.getters.success
-    }
-  },
-  watch: {
-    user (value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push('/')
-      }
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   methods: {
-    onSignin () {
-      this.$store.dispatch('signUserIn', {
+    onSignup () {
+      this.$store.dispatch('signUserUp', {
         email: this.email,
-        password: this.password
+        password: this.password,
+        passwordConfirmation: this.passwordConfirmation
       })
     },
     onDismissed () {
       this.$store.dispatch('clearAlert')
-    },
-    logout () {
-      this.$auth.logout().catch(e => {this.error = e + ''})
-    }
-  },
-  created () {
-    if (this.$route.query.account_confirmation_success === 'true') {
-      this.$store.dispatch('setSuccessMessage', 'welcome')
     }
   }
 }
