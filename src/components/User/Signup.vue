@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     comparePasswords () {
-      return v => this.password === this.passwordConfirmation || 'Password do not match'
+      return () => this.password === this.passwordConfirmation || 'Password do not match'
     },
     user () {
       return this.$store.getters.user
