@@ -14,6 +14,10 @@ yarn build
 ```
 
 # Release notes
+## 0.2.0
+- Upgrading the dependencies to support node v10
+- Upgrading vuetify by using vue cli plugin
+
 ## 0.1.0
 - show error messages when credentials are wrong
 - show feedback message when sign up
