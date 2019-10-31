@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
 import axios from '@/axios-auth'
 
 // let token = document.getElementsByName('csrf-token')[0].getAttribute('content')
@@ -77,8 +77,9 @@ export default new Vuex.Store({
       commit('setUser', {id: payload.uid, registeredMeetups: [], fbkeys: {}})
     },
     logout ({commit}) {
-      firebase.auth().signOut()
+      // firebase.auth().signOut()
       commit('setUser', null)
+      this.$router.push('/signin')
     },
     clearAlert ({commit}) {
       commit('clearAlert')

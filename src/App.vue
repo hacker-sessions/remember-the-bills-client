@@ -79,6 +79,9 @@ export default {
   methods: {
     login () {
       this.$router.push('/signin/')
+    },
+    onLogout() {
+      this.$store.dispatch('logout')
     }
   }
 }
