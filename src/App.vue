@@ -74,6 +74,6 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="stylus">
 @import "./style/loading.anim.css";
 </style>

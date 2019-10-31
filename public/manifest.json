@@ -1,6 +1,6 @@
 {
-  "name": "vue-pwa",
-  "short_name": "vue-pwa",
+  "name": "remember the bills",
+  "short_name": "remember bills",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
