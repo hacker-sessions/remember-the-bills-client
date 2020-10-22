@@ -46,7 +46,8 @@
     </v-content>
     <v-footer color="indigo" app class="pa-3">
       <v-spacer></v-spacer>
-      <div>&copy; 2019</div>
+      <div>&copy; 2020</div>
+      <v-spacer></v-spacer>
     </v-footer>
   </v-app>
 </template>
@@ -67,7 +68,8 @@ export default {
       ]
       if (this.userIsAuthenticated) {
         menuItems = [
-          {icon: 'person', title: 'Profile', link: '/'}
+          {icon: 'person', title: 'Profile', link: '/'},
+          {icon: 'alarm', title: 'Reminders', link: '/reminders'}
         ]
       }
       return menuItems
