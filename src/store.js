@@ -5,7 +5,6 @@ import axios from '@/axios-auth'
 
 // let token = document.getElementsByName('csrf-token')[0].getAttribute('content')
 // axios.defaults.headers.common['X-CSRF-Token'] = token
-axios.defaults.headers.common['Accept'] = 'application/json'
 
 Vue.use(Vuex)
 
@@ -39,7 +38,7 @@ export default new Vuex.Store({
       commit('setLoading', true)
       commit('clearAlert')
 
-      axios.post('/api/v1/auth', {
+      axios.post('/auth', {
         email: payload.email,
         password: payload.password,
         password_confirmation: payload.passwordConfirmation,
@@ -56,7 +55,7 @@ export default new Vuex.Store({
     signUserIn ({commit}, payload) {
       commit('setLoading', true)
       commit('clearAlert')
-      axios.post('/api/v1/auth/sign_in', {
+      axios.post('/auth/sign_in', {
         email: payload.email,
         password: payload.password
       }

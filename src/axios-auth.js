@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/'
+  baseURL: 'http://localhost:3000/api/v1'
 })
 
-instance.defaults.headers.common['SOMETHING'] = 'something'
+instance.defaults.headers.common['Accept'] = 'application/json'
 
 export default instance
