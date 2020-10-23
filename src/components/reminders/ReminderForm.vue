@@ -47,7 +47,7 @@
           md="4"
         >
           <v-text-field
-            v-model="label"
+            v-model="amount"
             label="Amount"
             prefix="R$"
             required
@@ -73,6 +73,7 @@
   export default {
     data: () => ({
       label: '',
+      amount: '',
       dueDate: new Date().toISOString().substr(0, 10),
       datepickerMenu: false,
       recurrent: true
