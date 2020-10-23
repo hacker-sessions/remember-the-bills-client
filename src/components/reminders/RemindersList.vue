@@ -10,7 +10,7 @@
     </v-data-table>
 
     <v-fab-transition>
-      <v-btn v-show="!hidden" color="pink" dark absolute bottom right fab>
+      <v-btn v-show="!hidden" color="pink" dark absolute bottom right fab to="/reminders/new">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-fab-transition>
