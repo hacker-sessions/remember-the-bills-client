@@ -16,32 +16,34 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter: AuthGuard
+      beforeEnter: AuthGuard,
     },
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: About,
     },
     {
       path: '/signin',
       name: 'signin',
-      component: Signin
+      component: Signin,
     },
     {
       path: '/signup',
       name: 'signup',
-      component: Signup
+      component: Signup,
     },
     {
       path: '/reminders',
       name: 'reminders',
-      component: Reminders
+      component: Reminders,
+      beforeEnter: AuthGuard,
     },
     {
       path: '/reminders/new',
       name: 'newreminder',
       component: ReminderForm,
+      beforeEnter: AuthGuard,
     },
   ],
   mode: 'history'
